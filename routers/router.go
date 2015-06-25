@@ -6,5 +6,6 @@ import (
 )
 
 func init() {
-	beegae.Router("/", &controllers.MainController{})
+	beegae.Router("/home", &controllers.MainController{})
+	beegae.Router("/user/newuser", &controllers.UserAddController{})
 }
