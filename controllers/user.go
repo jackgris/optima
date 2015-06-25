@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	//"github.com/Jackgris/optima/models"
-	//"github.com/astaxie/beegae
 	"log"
 )
 
