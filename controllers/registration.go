@@ -6,6 +6,7 @@ import (
 
 	"github.com/astaxie/beegae"
 	"github.com/astaxie/beego/validation"
+	"github.com/jackgris/optima/models"
 )
 
 type RegistrationController struct {
@@ -46,7 +47,7 @@ func (this *RegistrationController) Post() {
 	}
 
 	valid := validation.Validation{}
-	v, err := valid.Valid(&user)
+	v, err := valid.Valid(user)
 	if err != nil {
 		// handle error
 		log.Println("Error valid user", err)
@@ -56,6 +57,32 @@ func (this *RegistrationController) Post() {
 		for _, err := range valid.Errors {
 			log.Println(err.Key, err.Message)
 		}
+		this.TplNames = "registration.tpl"
+		return
+	}
+
+	register := &models.User{
+		Email: email,
+	}
+
+	exist, err := models.CheckExist(register, this.AppEngineCtx)
+	if err != nil {
+		log.Fatalln("Error to check if user exist", err.Error())
+		this.TplNames = "registration.tpl"
+		return
+	}
+
+	if exist {
+		log.Println("The user already exist")
+		// FIX need create a new view if the user already exist
+		this.TplNames = "registration.tpl"
+		return
+	}
+
+	_, err = models.AddUser(register, this.AppEngineCtx)
+	if err != nil {
+		log.Fatalln("Error created new user")
+		// FIX need create a new view if the user already exist
 		this.TplNames = "registration.tpl"
 		return
 	}
