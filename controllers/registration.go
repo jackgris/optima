@@ -34,8 +34,7 @@ func (this *RegistrationController) Post() {
 	job := this.GetString("user_job")
 	interests := this.GetStrings("user_interest")
 
-	log.Println("Data:", name, email, pass, age, biography, job, interests)
-	user := user{
+	user := &user{
 		Name:      name,
 		Email:     email,
 		Pass:      pass,
