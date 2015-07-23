@@ -24,7 +24,7 @@ func DefaultUserKey(c appengine.Context) *datastore.Key {
 // AddUser add a user to datastore
 func AddUser(u *User, c appengine.Context) (*datastore.Key, error) {
 
-	key := datastore.NewIncompleteKey(c, "User", nil) //DefaultUserKey(c)
+	key := datastore.NewIncompleteKey(c, "User", DefaultUserKey(c))
 	_, err := datastore.Put(c, key, u)
 	log.Println("AddUser receibed an object of type", reflect.TypeOf(u))
 	return key, err
@@ -45,7 +45,7 @@ func CheckExist(u *User, c appengine.Context) (bool, error) {
 	} else {
 		for _, us := range users {
 			log.Println(us.Email, u.Email)
-			if strings.EqualFold(u.Email, u.Email) {
+			if strings.EqualFold(us.Email, u.Email) {
 				return true, nil
 			}
 		}

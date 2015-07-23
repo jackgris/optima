@@ -67,7 +67,7 @@ func (this *RegistrationController) Post() {
 
 	exist, err := models.CheckExist(register, this.AppEngineCtx)
 	if err != nil {
-		log.Fatalln("Error to check if user exist", err.Error())
+		log.Fatalln("Error: check if user exist, ", err.Error())
 		this.TplNames = "registration.tpl"
 		return
 	}
