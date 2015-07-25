@@ -8,8 +8,7 @@
     </head>
     <body>
 
-      <form action="register" method="post">
-      
+      <form action="register" method="post">      
         <h1>Sign Up</h1>
         
         <fieldset>
