@@ -13,11 +13,11 @@ import (
 )
 
 type User struct {
-	Id      int64     `json:"id" datastore:"-"`
-	Name    string    `json:"text" datastore:",noindex"`
-	Pass    string    `json:"text" datastore:",noindex"`
-	Email   string    `json:"text" datastore:",noindex"`
-	Created time.Time `json:"created"`
+	Id      int64
+	Name    string
+	Pass    string
+	Email   string
+	Created time.Time
 }
 
 func DefaultUserKey(c appengine.Context) *datastore.Key {
@@ -52,7 +52,6 @@ func CheckExist(u *User, c appengine.Context) (bool, error) {
 				return true, nil
 			}
 		}
-
 	}
 	return false, nil
 }
