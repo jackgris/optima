@@ -3,6 +3,7 @@ package models
 import (
 	"errors"
 	"strings"
+	"time"
 
 	"appengine"
 	"appengine/datastore"
@@ -12,9 +13,11 @@ import (
 )
 
 type User struct {
-	Name  string
-	Pass  string
-	Email string
+	Id      int64     `json:"id" datastore:"-"`
+	Name    string    `json:"text" datastore:",noindex"`
+	Pass    string    `json:"text" datastore:",noindex"`
+	Email   string    `json:"text" datastore:",noindex"`
+	Created time.Time `json:"created"`
 }
 
 func DefaultUserKey(c appengine.Context) *datastore.Key {
