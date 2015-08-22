@@ -1,10 +1,12 @@
-<html>
+<!doctype html>
+<html lang="en" ng-app="optima">
   <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up Form</title>
         <link rel="stylesheet" href="/static/css/registration.css">
-        <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/static/css/bootstrap.css">
+        <script src="/static/js/angular/angular.js"></script>
     </head>
     <body>
 
@@ -61,6 +63,7 @@
         </select>
         
           <label>Interests:</label>
+          <br>
           <input type="checkbox" id="development" value="interest_development" name="user_interest"><label class="light" for="development">Development</label><br>
           <input type="checkbox" id="design" value="interest_design" name="user_interest"><label class="light" for="design">Design</label><br>
           <input type="checkbox" id="business" value="interest_business" name="user_interest"><label class="light" for="business">Business</label>
