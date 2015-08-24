@@ -5,7 +5,15 @@
 
 # Folders
 _obj
-_test
+_tes
+static/js/angular/*
+static/js/jasmine/*
+
+# Files
+!static/js/jasmine/SpecRunner.html
+!static/js/angular/angular.js
+!static/js/angular/angular-mocks.js
+!static/js/angular/angular-route.js
 
 # Architecture specific extensions/prefixes
 *.[568vq]
