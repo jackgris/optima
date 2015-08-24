@@ -1,6 +1,7 @@
 var optima = angular.module('optima', [
     'ngRoute', 
-    'homeControllers'
+    'homeControllers',
+    'homeServices'
 ]);
 
 optima.config(['$routeProvider',

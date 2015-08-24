@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="/static/css/app.css">
     <script src="/static/js/angular/angular.js"></script>
     <script src="/static/js/angular/angular-route.js"></script>
+    <script src="/static/js/angular/angular-resource.js"></script>
     <script src="/static/js/home.js"></script>
     <script src="/static/js/homeController.js"></script>
+    <script src="/static/js/homeService.js"></script>
   </head>
 
   <body>
@@ -26,9 +28,9 @@
     <footer>
       <div class="author">
         Official website:
-        <a href="http://{{.Website}}">{{.Website}}</a> /
+        <a href="http://<<<.Website>>>"><<<.Website>>></a> /
         Contact me:
-        <a class="email" href="mailto:{{.Email}}">{{.Email}}</a>
+        <a class="email" href="mailto:<<<.Email>>>"><<<.Email>>></a>
       </div>
     </footer>
     <div class="backdrop"></div>
