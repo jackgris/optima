@@ -1,13 +1,13 @@
-<form action="login" method="post">
+<form ng-submit="login()" ng-controller="LoginController" method="post">
   
   <h2>Login</h2>
   
   <fieldset>          
     <label for="mail">Email:</label>
-    <input type="email" id="mail" name="user_email">
+    <input type="email" ng-model="login.email" id="mail" name="user_email">
     
     <label for="password">Password:</label>
-    <input type="password" id="password" name="user_password">
+    <input type="password" ng-model="login.password" id="password" name="user_password">
 
   </fieldset>
 

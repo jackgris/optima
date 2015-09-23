@@ -12,11 +12,17 @@ import (
 	"reflect"
 )
 
+type Token struct {
+	Hash   string        `json:"hash"`
+	Expire time.Duration `json:"expire"`
+}
+
 type User struct {
 	Id      int64
-	Name    string
-	Pass    string
-	Email   string
+	Name    string `json:"name"`
+	Pass    string `json:"password"`
+	Email   string `json:"email"`
+	Token   Token  `json:"token"`
 	Created time.Time
 }
 
@@ -27,6 +33,7 @@ func DefaultUserKey(c appengine.Context) *datastore.Key {
 // AddUser add a user to datastore
 func AddUser(u *User, c appengine.Context) (*datastore.Key, error) {
 
+	u.Created = time.Now()
 	key := datastore.NewIncompleteKey(c, "User", DefaultUserKey(c))
 	_, err := datastore.Put(c, key, u)
 	log.Println("AddUser receibed an object of type", reflect.TypeOf(u))
@@ -54,4 +61,35 @@ func CheckExist(u *User, c appengine.Context) (bool, error) {
 		}
 	}
 	return false, nil
+}
+
+func (t *Token) Authentication(user string) error {
+	return nil // not implemented
+}
+
+func (t *Token) Logout(user string) error {
+	return nil // not implemented
+}
+
+func (t *Token) isBlackList(user string) bool {
+	return false // not implemented
+}
+
+func (t *Token) CheckExist(user string) bool {
+	return false // not implemented
+}
+
+func (u User) GetToken() string {
+
+	return `{token:` + u.Token.Hash + `}`
+}
+
+func (u *User) Save() {
+	// not implemented
+	panic("not implemented")
+}
+
+func (u *User) RefreshToken() {
+	token, _ := GenerateToken(u.Email)
+	u.Token = token
 }
