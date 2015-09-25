@@ -27,7 +27,25 @@ angular
                 templateUrl: null,
                 controller: 'LogoutController'
             }).
+            when('/private', {
+                templateUrl: '/static/partials/private.html',
+                controller: 'PrivateController',
+                resolve: {
+                    loginRequired: loginRequired
+                }
+            }).
             otherwise({
                 redirectTo: '/'
             });
 });    
+
+//Redirect unauthenticated users to the login state
+function loginRequired($q, $location, $auth){
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+        deferred.resolve();
+    } else {
+        $location.path('/login');
+    }
+    return deferred.promise;
+}

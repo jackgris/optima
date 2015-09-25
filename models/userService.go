@@ -26,6 +26,7 @@ type User struct {
 	Created time.Time
 }
 
+// Return the key for use the datastore
 func DefaultUserKey(c appengine.Context) *datastore.Key {
 	return datastore.NewKey(c, "User", "default", 0, nil)
 }
@@ -63,32 +64,7 @@ func CheckExist(u *User, c appengine.Context) (bool, error) {
 	return false, nil
 }
 
-func (t *Token) Authentication(user string) error {
-	return nil // not implemented
-}
-
-func (t *Token) Logout(user string) error {
-	return nil // not implemented
-}
-
-func (t *Token) isBlackList(user string) bool {
-	return false // not implemented
-}
-
-func (t *Token) CheckExist(user string) bool {
-	return false // not implemented
-}
-
-func (u User) GetToken() string {
-
-	return `{token:` + u.Token.Hash + `}`
-}
-
-func (u *User) Save() {
-	// not implemented
-	panic("not implemented")
-}
-
+// Recreate the token
 func (u *User) RefreshToken() {
 	token, _ := GenerateToken(u.Email)
 	u.Token = token

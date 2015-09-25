@@ -3,10 +3,23 @@ angular
     .controller('HomeController', HomeController)
     .controller('SignUpController', SignUpController)
     .controller('LoginController', LoginController)
-    .controller('LogoutController', LogoutController);
+    .controller('LogoutController', LogoutController)
+    .controller('PrivateController', PrivateController);
 
 function HomeController($log) {  
     $log.info('Estamos en el home');
+}
+
+function PrivateController($auth, $scope, $log, $location){
+    $log.info('Estamos en una seccion privada, '
+                             + 'solo debe poder ingresar alguien autenticado');
+    $scope.logout = function(){
+        $auth.logout()
+            .then(function() {
+                // Desconectamos al usuario y lo redirijimos
+                $location.path("/")
+            });
+    }
 }
 
 function SignUpController($auth, $location, $scope, $log) {  
@@ -21,7 +34,7 @@ function SignUpController($auth, $location, $scope, $log) {
             $log.info('Se realizo el registro correctamente');
             // Si se ha registrado correctamente,
             // Podemos redirigirle a otra parte
-            $location.path("/");
+            $location.path("/private");
         })
         .catch(function(response) {
             // Si ha habido errores, llegaremos a esta función
