@@ -2,6 +2,7 @@ angular
    .module('optima', [
        'satellizer',
        'ngRoute',
+       'ngResource',
    ])
     .config(function($authProvider, $routeProvider){
         // Params to user authentication

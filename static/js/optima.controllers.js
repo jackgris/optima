@@ -10,7 +10,7 @@ function HomeController($log) {
     $log.info('Estamos en el home');
 }
 
-function PrivateController($auth, $scope, $log, $location){
+function PrivateController($auth, $scope, $log, $location, Advertiser){
     $log.info('Estamos en una seccion privada, '
                              + 'solo debe poder ingresar alguien autenticado');
     $scope.logout = function(){
@@ -20,6 +20,8 @@ function PrivateController($auth, $scope, $log, $location){
                 $location.path("/")
             });
     }
+    $scope.advertisers = Advertiser.query();
+    $scope.orderAdvertiser = 'age';
 }
 
 function SignUpController($auth, $location, $scope, $log) {  

@@ -11,6 +11,7 @@
     <script src="/static/js/satellizer.js"></script>
     <script src="/static/js/home.js"></script>
     <script src="/static/js/optima.controllers.js"></script>
+    <script src="/static/js/optima.services.js"></script>
   </head>
 
   <body>
