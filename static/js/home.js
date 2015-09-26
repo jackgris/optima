@@ -1,25 +1,51 @@
-var optima = angular.module('optima', [
-    'ngRoute', 
-    'homeControllers',
-    'homeServices'
-]);
+angular
+   .module('optima', [
+       'satellizer',
+       'ngRoute',
+   ])
+    .config(function($authProvider, $routeProvider){
+        // Params to user authentication
+        $authProvider.loginUrl = "http://localhost:8080/auth/login";
+        $authProvider.signupUrl ="http://localhost:8080/auth/signup";
+        $authProvider.tokenName = "token";
+        $authProvider.tokenPrefix = "optima";          
+            
+        $routeProvider.
+            when('/', {
+                templateUrl: '/static/partials/home.html',
+                controller: 'HomeController'
+            }).
+            when('/login', {
+                templateUrl: '/static/partials/home-login.html',
+                controller: 'LoginController'
+            }).     
+            when('/registro', {
+                templateUrl: '/static/partials/home-register.html',
+                controller: 'SignUpController'
+            }).
+            when('/logout', {
+                templateUrl: null,
+                controller: 'LogoutController'
+            }).
+            when('/private', {
+                templateUrl: '/static/partials/private.html',
+                controller: 'PrivateController',
+                resolve: {
+                    loginRequired: loginRequired
+                }
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
+});    
 
-optima.config(['$routeProvider',
-  function($routeProvider){
-      $routeProvider.
-          when('/', {
-              templateUrl: '/static/partials/home.html',
-              controller: 'OptimaHome'
-          }).
-          when('/login', {
-              templateUrl: '/static/partials/home-login.html',
-              controller: 'OptimaLogin'
-          }).     
-          when('/registro', {
-              templateUrl: '/static/partials/home-register.html',
-              controller: 'OptimaRegister'
-          }).
-          otherwise({
-              redirectTo: '/'
-          });
-  }]);
+//Redirect unauthenticated users to the login state
+function loginRequired($q, $location, $auth){
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+        deferred.resolve();
+    } else {
+        $location.path('/login');
+    }
+    return deferred.promise;
+}

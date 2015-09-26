@@ -1,29 +1,22 @@
-<form action="register" method="post">      
+<form ng-submit="signup()" ng-controller="SignUpController" method="post">      
+
   <h2>Registro</h2>
   
   <fieldset>
     <legend><span class="number">1</span>Your basic info</legend>
     <label for="name">Name:</label>
-    <input type="text" id="name" name="user_name">
+    <input type="text" ng-model="signup.nombre" id="name" name="user_name">
     
     <label for="mail">Email:</label>
-    <input type="email" id="mail" name="user_email">
+    <input type="email" ng-model="signup.email" id="mail" name="user_email">
     
     <label for="password">Password:</label>
-    <input type="password" id="password" name="user_password">
+    <input type="password" ng-model="signup.password" id="password" name="user_password">
 
     <label for="password">Password Again:</label>
-    <input type="password" id="password_again" name="user_password_again">
+    <input type="password" ng-model="signup.repassword" id="password_again" name="user_password_again">
     
-    <label>Age:</label>
-    <input type="number" id="user_age" name="user_age">
-  </fieldset>
+ </fieldset>
   
-  <fieldset>
-    <legend><span class="number">2</span>Your profile</legend>
-    <label for="bio">Biography:</label>
-    <br>
-    <textarea id="bio" name="user_bio"></textarea>
-  </fieldset>
   <button type="submit">Enviar</button>
 </form>

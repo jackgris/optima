@@ -8,9 +8,9 @@
     <script src="/static/js/angular/angular.js"></script>
     <script src="/static/js/angular/angular-route.js"></script>
     <script src="/static/js/angular/angular-resource.js"></script>
+    <script src="/static/js/satellizer.js"></script>
     <script src="/static/js/home.js"></script>
-    <script src="/static/js/homeController.js"></script>
-    <script src="/static/js/homeService.js"></script>
+    <script src="/static/js/optima.controllers.js"></script>
   </head>
 
   <body>

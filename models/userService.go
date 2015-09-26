@@ -12,14 +12,21 @@ import (
 	"reflect"
 )
 
+type Token struct {
+	Hash   string        `json:"hash"`
+	Expire time.Duration `json:"expire"`
+}
+
 type User struct {
 	Id      int64
-	Name    string
-	Pass    string
-	Email   string
+	Name    string `json:"name"`
+	Pass    string `json:"password"`
+	Email   string `json:"email"`
+	Token   Token  `json:"token"`
 	Created time.Time
 }
 
+// Return the key for use the datastore
 func DefaultUserKey(c appengine.Context) *datastore.Key {
 	return datastore.NewKey(c, "User", "default", 0, nil)
 }
@@ -27,6 +34,7 @@ func DefaultUserKey(c appengine.Context) *datastore.Key {
 // AddUser add a user to datastore
 func AddUser(u *User, c appengine.Context) (*datastore.Key, error) {
 
+	u.Created = time.Now()
 	key := datastore.NewIncompleteKey(c, "User", DefaultUserKey(c))
 	_, err := datastore.Put(c, key, u)
 	log.Println("AddUser receibed an object of type", reflect.TypeOf(u))
@@ -54,4 +62,10 @@ func CheckExist(u *User, c appengine.Context) (bool, error) {
 		}
 	}
 	return false, nil
+}
+
+// Recreate the token
+func (u *User) RefreshToken() {
+	token, _ := GenerateToken(u.Email)
+	u.Token = token
 }
