@@ -57,11 +57,9 @@ function LoginController($log, $auth, $location, $scope) {
             $location.path("/private")
         })
         .catch(function(response){
-            $log.debug(supplant( "login( `{0}` `{1}` )", [$scope.login.email, $scope.login.password] ))
-            $log.log(email);
-            $log.log(password);
             // Si ha habido errores llegamos a esta parte
             $log.info('Hubo un error en el login');
+            $location.path("/registro")
         });
     }
 }

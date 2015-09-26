@@ -3,7 +3,6 @@ package models
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
@@ -18,13 +17,12 @@ func GetUser(email string, c appengine.Context) (User, error) {
 	q := datastore.NewQuery("User").Filter("Email =", email)
 	var users []User
 	if _, err := q.GetAll(c, &users); err != nil {
-		log.Fatalln("GetUser All", err)
+		err = errors.New("on GetUser All" + err.Error())
 		return User{}, err
 	}
 
 	if len(users) < 1 {
-		err := errors.New("The user doesn't exist")
-		log.Fatalln("GetUser from datastore", err)
+		err := errors.New("on GetUser the user doesn't exist")
 		return User{}, err
 	}
 
