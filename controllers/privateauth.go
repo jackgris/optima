@@ -17,7 +17,7 @@ func (this *PrivateAuthController) AuthPrivatePlace() {
 
 	s := strings.SplitN(this.Ctx.Request.Header.Get("Authorization"), " ", 2)
 	if len(s) != 2 || s[0] != "Bearer" {
-		log.Fatalln("No tiene encabezado de autorizacion")
+		log.Println("Hasn't authorization header")
 		this.Redirect("/", 302)
 		return
 	} else {
@@ -33,7 +33,7 @@ func (this *PrivateAuthController) AuthPrivatePlace() {
 		switch err.(type) {
 		case nil:
 			if !payload.Valid {
-				log.Fatalln("Invalid payload", err)
+				log.Println("Invalid payload", err)
 				this.Redirect("/", 302)
 				return
 			}
@@ -41,17 +41,17 @@ func (this *PrivateAuthController) AuthPrivatePlace() {
 			vErr := err.(*jwt.ValidationError)
 			switch vErr.Errors {
 			case jwt.ValidationErrorExpired:
-				log.Fatalln("Token expired", err)
+				log.Println("Token expired", err)
 				this.Redirect("/", 302)
 				return
 			default:
-				log.Fatalln("Error validation", err)
+				log.Println("Error validation", err)
 				this.Redirect("/", 302)
 				return
 			}
 		default:
 			if err != nil {
-				log.Fatalln("Error payload", err)
+				log.Println("Error payload", err)
 				this.Redirect("/", 302)
 				return
 			}
