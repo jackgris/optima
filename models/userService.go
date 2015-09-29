@@ -50,12 +50,10 @@ func CheckExist(u *User, c appengine.Context) (bool, error) {
 	if err != nil {
 		return false, errors.New("Error veryfing if user exist," + err.Error())
 	}
-	log.Println("Before check array", len(users))
 	if len(users) < 1 {
 		return false, nil
 	} else {
 		for _, us := range users {
-			log.Println(us.Email, u.Email)
 			if strings.EqualFold(us.Email, u.Email) {
 				return true, nil
 			}

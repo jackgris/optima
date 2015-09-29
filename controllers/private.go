@@ -23,7 +23,7 @@ func (this *PrivateController) Get() {
 	var advertisers []Advertiser
 	err := json.Unmarshal(a, &advertisers)
 	if err != nil {
-		log.Fatalln("Error to unmarshal json advertisers", err)
+		log.Println("Private: Error to unmarshal json advertisers", err)
 		this.Data["json"] = &Advertiser{}
 	}
 	this.Data["json"] = &advertisers

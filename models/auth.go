@@ -46,11 +46,9 @@ func GenerateToken(user string) (Token, error) {
 	token.Claims["iat"] = time.Now().Unix()
 	token.Claims["sub"] = user
 	hash, err := token.SignedString([]byte(Privatekey))
-	// var t Token
 	t := Token{}
-
 	if err != nil {
-		log.Fatalln(errors.New("Error generating hash token" + err.Error()))
+		log.Println(errors.New("GenerateToken: Error generating hash token" + err.Error()))
 		return t, errors.New("Error generating hash token" + err.Error())
 	}
 	t.Hash = hash

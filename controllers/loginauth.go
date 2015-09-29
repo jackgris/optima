@@ -15,7 +15,7 @@ func (this *LoginAuth) Post() {
 	// get the data from the request on json format
 	userData, err := decodeUserData(this.Ctx.Input.Request.Body)
 	if err != nil {
-		log.Fatalln("Error decode user data on login", err)
+		log.Println("LoginAuth: Error decode user data on login", err)
 		this.Data["json"] = &models.Token{}
 		return
 	}
@@ -23,14 +23,14 @@ func (this *LoginAuth) Post() {
 	// get the user data from the datastore
 	user, err := models.GetUser(userData.Email, this.AppEngineCtx)
 	if err != nil {
-		log.Fatalln("Login", err)
+		log.Println("LoginAuth: ", err)
 		this.Data["json"] = &models.Token{}
 		return
 	}
 	// check if the password is the same
 	if user.Pass != userData.Pass {
 		wrong := "Wrong password"
-		log.Fatalln("Login", wrong)
+		log.Println("LoginAuth: ", wrong)
 		this.Data["json"] = &models.Token{}
 		return
 	}
@@ -39,7 +39,7 @@ func (this *LoginAuth) Post() {
 }
 
 func (this *LoginAuth) Get() {
-	log.Println("En el meuserData GET de LoginAuth")
+	log.Println("LoginAuth: En el meuserData GET de LoginAuth")
 }
 
 func (this *LoginAuth) Render() error {

@@ -17,7 +17,7 @@ func (this *PrivateAuthController) AuthPrivatePlace() {
 
 	s := strings.SplitN(this.Ctx.Request.Header.Get("Authorization"), " ", 2)
 	if len(s) != 2 || s[0] != "Bearer" {
-		log.Println("Hasn't authorization header")
+		log.Println("PrivateAuth: Hasn't authorization header")
 		this.Redirect("/", 302)
 		return
 	} else {
@@ -33,7 +33,7 @@ func (this *PrivateAuthController) AuthPrivatePlace() {
 		switch err.(type) {
 		case nil:
 			if !payload.Valid {
-				log.Println("Invalid payload", err)
+				log.Println("PrivateAuth: Invalid payload", err)
 				this.Redirect("/", 302)
 				return
 			}
@@ -41,21 +41,35 @@ func (this *PrivateAuthController) AuthPrivatePlace() {
 			vErr := err.(*jwt.ValidationError)
 			switch vErr.Errors {
 			case jwt.ValidationErrorExpired:
-				log.Println("Token expired", err)
+				log.Println("PrivateAuth: Token expired", err)
 				this.Redirect("/", 302)
 				return
 			default:
-				log.Println("Error validation", err)
+				log.Println("PrivateAuth: Error validation", err)
 				this.Redirect("/", 302)
 				return
 			}
 		default:
 			if err != nil {
-				log.Println("Error payload", err)
+				log.Println("PrivateAuth: Error payload", err)
 				this.Redirect("/", 302)
 				return
 			}
 		}
-		log.Println("Payload", payload)
+
+		if email, ok := payload.Claims["sub"].(string); !ok {
+			log.Println("PrivateAuth: Error get email user from token", err)
+			this.Redirect("/", 302)
+		} else {
+			ok, err := models.CheckExist(&models.User{Email: email}, this.AppEngineCtx)
+			if err != nil {
+				log.Println("PrivateAuth: Error check user", err)
+				this.Redirect("/", 302)
+			}
+			if !ok {
+				log.Println("PrivateAuth: The user not exist")
+				this.Redirect("/", 302)
+			}
+		}
 	}
 }
