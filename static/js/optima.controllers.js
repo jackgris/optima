@@ -6,8 +6,10 @@ angular
     .controller('LogoutController', LogoutController)
     .controller('PrivateController', PrivateController);
 
-function HomeController($log) {  
+function HomeController($log, $auth) {  
     $log.info('Estamos en el home');
+    $log.info($auth.getToken())
+    $log.info($auth.getPayload())
 }
 
 function PrivateController($auth, $scope, $log, $location, Advertiser){

@@ -20,7 +20,6 @@ func (this *LoginAuth) Post() {
 		return
 	}
 
-	log.Println("AppEngine ", userData)
 	// get the user data from the datastore
 	user, err := models.GetUser(userData.Email, this.AppEngineCtx)
 	if err != nil {
@@ -36,8 +35,7 @@ func (this *LoginAuth) Post() {
 		return
 	}
 
-	log.Println(len(user.Token.Hash))
-	this.Data["json"] = &user
+	this.Data["json"] = &user.Token
 }
 
 func (this *LoginAuth) Get() {

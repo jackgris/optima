@@ -13,7 +13,7 @@ import (
 )
 
 type Token struct {
-	Hash   string        `json:"hash"`
+	Hash   string        `json:"token"`
 	Expire time.Duration `json:"expire"`
 }
 
