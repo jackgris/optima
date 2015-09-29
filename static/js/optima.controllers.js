@@ -6,11 +6,13 @@ angular
     .controller('LogoutController', LogoutController)
     .controller('PrivateController', PrivateController);
 
-function HomeController($log) {  
+function HomeController($log, $auth) {  
     $log.info('Estamos en el home');
+    $log.info($auth.getToken())
+    $log.info($auth.getPayload())
 }
 
-function PrivateController($auth, $scope, $log, $location){
+function PrivateController($auth, $scope, $log, $location, Advertiser){
     $log.info('Estamos en una seccion privada, '
                              + 'solo debe poder ingresar alguien autenticado');
     $scope.logout = function(){
@@ -20,6 +22,8 @@ function PrivateController($auth, $scope, $log, $location){
                 $location.path("/")
             });
     }
+    $scope.advertisers = Advertiser.query();
+    $scope.orderAdvertiser = 'age';
 }
 
 function SignUpController($auth, $location, $scope, $log) {  

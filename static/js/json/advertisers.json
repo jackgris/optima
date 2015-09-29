@@ -1,44 +1,4 @@
-package controllers
-
-import (
-	"encoding/json"
-	"log"
-)
-
-type PrivateController struct {
-	PrivateAuthController
-}
-
-type Advertiser struct {
-	Age      int    `json:"age"`
-	Id       string `json:"id"`
-	ImageUrl string `json:"imageurl"`
-	Name     string `json:"name"`
-	Snippet  string `json:"snippet"`
-}
-
-func (this *PrivateController) Get() {
-
-	a := []byte(advertisersData)
-	var advertisers []Advertiser
-	err := json.Unmarshal(a, &advertisers)
-	if err != nil {
-		log.Fatalln("Error to unmarshal json advertisers", err)
-		this.Data["json"] = &Advertiser{}
-	}
-	this.Data["json"] = &advertisers
-}
-
-func (this *PrivateController) Render() error {
-	if _, ok := this.Data["json"].(error); ok {
-		this.AppEngineCtx.Errorf("login auth error: %v", this.Data["json"])
-	}
-	this.ServeJson()
-	return nil
-}
-
-const (
-	advertisersData = `[
+[
     {
         "age": 0, 
         "id": "motorola-xoom-with-wi-fi", 
@@ -192,5 +152,4 @@ const (
         "name": "Motorola CHARM\u2122 with MOTOBLUR\u2122", 
         "snippet": "Motorola CHARM fits easily in your pocket or palm.  Includes MOTOBLUR service."
     }
-]`
-)
+]

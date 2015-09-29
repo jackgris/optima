@@ -15,12 +15,11 @@ func (this *RegisterAuth) Post() {
 
 	user, err := decodeUserData(this.Ctx.Input.Request.Body)
 	if err != nil {
-		this.Data["json"] = &models.Token{}
 		log.Fatalln("Error decode user data on register", err)
+		this.Data["json"] = &models.Token{}
 		return
 	}
 
-	log.Println("Registro data ", user)
 	token, _ := models.GenerateToken(user.Email)
 	user.Token = token
 	exist, err := models.CheckExist(user, this.AppEngineCtx)
@@ -30,14 +29,14 @@ func (this *RegisterAuth) Post() {
 		return
 	}
 	if exist {
-		this.Data["json"] = &models.Token{}
 		log.Fatalln("The user already exist")
+		this.Data["json"] = &models.Token{}
 		return
 	} else {
 		models.AddUser(user, this.AppEngineCtx)
 	}
 	// It's all ok, return the user data on json format
-	this.Data["json"] = &user
+	this.Data["json"] = &user.Token
 }
 
 func (this *RegisterAuth) Get() {

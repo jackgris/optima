@@ -9,6 +9,6 @@ import (
 func init() {
 	beegae.Router("/auth/login", &controllers.LoginAuth{})
 	beegae.Router("/auth/signup", &controllers.RegisterAuth{})
-	beegae.Router("/private", &controllers.PrivateController{})
+	beegae.Router("/privatedata", &controllers.PrivateController{})
 	beegae.Router("/", &controllers.MainController{})
 }

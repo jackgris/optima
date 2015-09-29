@@ -1,6 +1,18 @@
 <form ng-submit="logout()" ng-controller="PrivateController" method="post">
   
-  <h2>Esta sección es privada</h2>
+  <h2>Listado de publicistas</h2>
+
+  Search: <input name="query" ng-model="query">
+  <select ng-model="orderAdvertiser">
+    <option value="name">Alphabetical</option>
+    <option value="age">Newest</option>
+  </select>
+
+  <ul>
+    <li ng-repeat="advertiser in advertisers | filter:query | orderBy:orderAdvertiser" class="thumbnail advertiser-listing">
+      <p>{{advertiser.name}}</p>
+    </li>
+  </ul>
 
   <button type="submit">Logout</button>
 </form>
