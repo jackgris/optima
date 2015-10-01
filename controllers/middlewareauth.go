@@ -17,7 +17,7 @@ func (this *MiddlewareAuthController) AuthPrivatePlace() {
 	// Check if has authentication header, if not, redirect to the main page
 	s := strings.SplitN(this.Ctx.Request.Header.Get("Authorization"), " ", 2)
 	if len(s) != 2 || s[0] != "Bearer" {
-		log.Println("PrivateAuth: Hasn't authorization header")
+		log.Println("MiddlewareAuth: Hasn't authorization header")
 		this.Redirect("/", 302)
 		return
 	} else {
@@ -34,7 +34,7 @@ func (this *MiddlewareAuthController) AuthPrivatePlace() {
 		switch err.(type) {
 		case nil:
 			if !payload.Valid {
-				log.Println("PrivateAuth: Invalid payload", err)
+				log.Println("MiddlewareAuth: Invalid payload", err)
 				this.Redirect("/", 302)
 				return
 			}
@@ -42,17 +42,17 @@ func (this *MiddlewareAuthController) AuthPrivatePlace() {
 			vErr := err.(*jwt.ValidationError)
 			switch vErr.Errors {
 			case jwt.ValidationErrorExpired:
-				log.Println("PrivateAuth: Token expired", err)
+				log.Println("MiddlewareAuth: Token expired", err)
 				this.Redirect("/", 302)
 				return
 			default:
-				log.Println("PrivateAuth: Error validation", err)
+				log.Println("MiddlewareAuth: Error validation", err)
 				this.Redirect("/", 302)
 				return
 			}
 		default:
 			if err != nil {
-				log.Println("PrivateAuth: Error payload", err)
+				log.Println("MiddlewareAuth: Error payload", err)
 				this.Redirect("/", 302)
 				return
 			}
@@ -60,17 +60,17 @@ func (this *MiddlewareAuthController) AuthPrivatePlace() {
 
 		// Get the email from the token
 		if email, ok := payload.Claims["sub"].(string); !ok {
-			log.Println("PrivateAuth: Error get email user from token", err)
+			log.Println("MiddlewareAuth: Error get email user from token", err)
 			this.Redirect("/", 302)
 		} else {
 			// Veify if exist an user with that email
 			ok, err := models.CheckExist(&models.User{Email: email}, this.AppEngineCtx)
 			if err != nil {
-				log.Println("PrivateAuth: Error check user", err)
+				log.Println("MiddlewareAuth: Error check user", err)
 				this.Redirect("/", 302)
 			}
 			if !ok {
-				log.Println("PrivateAuth: The user not exist")
+				log.Println("MiddlewareAuth: The user not exist")
 				this.Redirect("/", 302)
 			}
 		}
