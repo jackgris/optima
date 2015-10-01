@@ -14,13 +14,14 @@ type PrivateAuthController struct {
 }
 
 func (this *PrivateAuthController) AuthPrivatePlace() {
-
+	// Check if has authentication header, if not, redirect to the main page
 	s := strings.SplitN(this.Ctx.Request.Header.Get("Authorization"), " ", 2)
 	if len(s) != 2 || s[0] != "Bearer" {
 		log.Println("PrivateAuth: Hasn't authorization header")
 		this.Redirect("/", 302)
 		return
 	} else {
+		// Check if has an valid token
 		token := strings.SplitN(this.Ctx.Request.Header.Get("Authorization"), " ", 2)
 		payload, err := jwt.Parse(token[1], func(token *jwt.Token) (interface{}, error) {
 			// Validate the alg is what you expect:
@@ -29,7 +30,7 @@ func (this *PrivateAuthController) AuthPrivatePlace() {
 			}
 			return []byte(models.Privatekey), nil
 		})
-
+		// Verify diferents errors type, than can made from the token
 		switch err.(type) {
 		case nil:
 			if !payload.Valid {
@@ -57,10 +58,12 @@ func (this *PrivateAuthController) AuthPrivatePlace() {
 			}
 		}
 
+		// Get the email from the token
 		if email, ok := payload.Claims["sub"].(string); !ok {
 			log.Println("PrivateAuth: Error get email user from token", err)
 			this.Redirect("/", 302)
 		} else {
+			// Veify if exist an user with that email
 			ok, err := models.CheckExist(&models.User{Email: email}, this.AppEngineCtx)
 			if err != nil {
 				log.Println("PrivateAuth: Error check user", err)
