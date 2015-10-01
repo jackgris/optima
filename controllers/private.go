@@ -6,7 +6,7 @@ import (
 )
 
 type PrivateController struct {
-	PrivateAuthController
+	MiddlewareAuthController
 }
 
 type Advertiser struct {

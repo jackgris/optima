@@ -9,11 +9,11 @@ import (
 	"github.com/jackgris/optima/models"
 )
 
-type PrivateAuthController struct {
+type MiddlewareAuthController struct {
 	NeedAuthController
 }
 
-func (this *PrivateAuthController) AuthPrivatePlace() {
+func (this *MiddlewareAuthController) AuthPrivatePlace() {
 	// Check if has authentication header, if not, redirect to the main page
 	s := strings.SplitN(this.Ctx.Request.Header.Get("Authorization"), " ", 2)
 	if len(s) != 2 || s[0] != "Bearer" {
