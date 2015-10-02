@@ -3,6 +3,7 @@ angular
        'satellizer',
        'ngRoute',
        'ngResource',
+       'smart-table',
    ])
     .config(function($authProvider, $routeProvider){
         // Params to user authentication

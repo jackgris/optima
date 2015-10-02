@@ -8,11 +8,34 @@
     <option value="age">Newest</option>
   </select>
 
-  <ul>
-    <li ng-repeat="advertiser in advertisers | filter:query | orderBy:orderAdvertiser" class="thumbnail advertiser-listing">
-      <p>{{advertiser.name}}</p>
-    </li>
-  </ul>
+  <table st-table="advertisers" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Sexo</th>
+        <th>NSE</th>
+        <th>Cobertura</th>
+        <th>Intereses</th>
+        <th>Categoría</th>
+        <th>Presupuesto</th>
+        <th>Objetivos</th>
+        <th>Edad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="advertiser in advertisers | filter:query | orderBy:orderAdvertiser">
+        <td>{{advertiser.name}}</td>
+        <td>{{advertiser.sex}}</td>
+        <td>{{advertiser.nse}}</td>
+        <td>{{advertiser.coverage}}</td>
+        <td>{{advertiser.interests}}</td>
+        <td>{{advertiser.category}}</td>
+        <td>{{advertiser.budget}}</td>
+        <td>{{advertiser.objetives}}</td>
+        <td>{{advertiser.age}}</td>
+      </tr>
+    </tbody>
+  </table>
 
   <button type="submit">Logout</button>
 </form>

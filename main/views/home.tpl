@@ -12,6 +12,7 @@
     <script src="/static/js/home.js"></script>
     <script src="/static/js/optima.controllers.js"></script>
     <script src="/static/js/optima.services.js"></script>
+    <script src="/static/js/smart-table.js"></script>
   </head>
 
   <body>

@@ -9,7 +9,6 @@ import (
 	"appengine/datastore"
 
 	"log"
-	"reflect"
 )
 
 type Token struct {
@@ -37,7 +36,9 @@ func AddUser(u *User, c appengine.Context) (*datastore.Key, error) {
 	u.Created = time.Now()
 	key := datastore.NewIncompleteKey(c, "User", DefaultUserKey(c))
 	_, err := datastore.Put(c, key, u)
-	log.Println("AddUser receibed an object of type", reflect.TypeOf(u))
+	if err != nil {
+		log.Println("AddUser error", err)
+	}
 	return key, err
 }
 
