@@ -40,6 +40,11 @@ CKuHRG+AP579dncdUnOMvfXOtkdM4vk0+hWASBQzM9xzVcztCa+koAugjVaLS9A+
 	tokenduration = 24
 )
 
+type Token struct {
+	Hash   string        `json:"token"`
+	Expire time.Duration `json:"expire"`
+}
+
 func GenerateToken(user string) (Token, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims["exp"] = time.Now().Add(time.Hour * tokenduration)
