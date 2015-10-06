@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"time"
 
@@ -37,7 +38,7 @@ CKuHRG+AP579dncdUnOMvfXOtkdM4vk0+hWASBQzM9xzVcztCa+koAugjVaLS9A+
 9uQoqEeVNTckxx0S2bYevRy7hGQmUJTyQm3j1zEUR5jpdbL83Fbq
 -----END RSA PRIVATE KEY-----`
 
-	tokenduration = 24
+	Tokenduration = 24
 )
 
 type Token struct {
@@ -45,9 +46,10 @@ type Token struct {
 	Expire time.Duration `json:"expire"`
 }
 
+// Create and return a object Token
 func GenerateToken(user string) (Token, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
-	token.Claims["exp"] = time.Now().Add(time.Hour * tokenduration)
+	token.Claims["exp"] = time.Now().Add(time.Hour * Tokenduration)
 	token.Claims["iat"] = time.Now().Unix()
 	token.Claims["sub"] = user
 	hash, err := token.SignedString([]byte(Privatekey))
@@ -57,6 +59,18 @@ func GenerateToken(user string) (Token, error) {
 		return t, errors.New("Error generating hash token" + err.Error())
 	}
 	t.Hash = hash
-	t.Expire = tokenduration
+	t.Expire = Tokenduration
 	return t, nil
+}
+
+// Get a object token from a string hash that represent the token
+func ParseToken(token string) (*jwt.Token, error) {
+	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
+		// Validate the alg is what you expect:
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+		}
+		return []byte(Privatekey), nil
+	})
+	return t, err
 }

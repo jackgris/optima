@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"log"
 	"strings"
 
@@ -23,13 +22,8 @@ func (this *MiddlewareAuthController) AuthPrivatePlace() {
 	} else {
 		// Check if has an valid token
 		token := strings.SplitN(this.Ctx.Request.Header.Get("Authorization"), " ", 2)
-		payload, err := jwt.Parse(token[1], func(token *jwt.Token) (interface{}, error) {
-			// Validate the alg is what you expect:
-			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
-			}
-			return []byte(models.Privatekey), nil
-		})
+		payload, err := models.ParseToken(token[1])
+
 		// Verify diferents errors type, than can made from the token
 		switch err.(type) {
 		case nil:
