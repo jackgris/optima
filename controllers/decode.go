@@ -7,7 +7,7 @@ import (
 	"github.com/jackgris/optima/models"
 )
 
-func decodeUserData(r io.ReadCloser) (*models.User, error) {
+func DecodeUserData(r io.ReadCloser) (*models.User, error) {
 	defer r.Close()
 	var u models.User
 	err := json.NewDecoder(r).Decode(&u)

@@ -13,7 +13,7 @@ type LoginAuth struct {
 
 func (this *LoginAuth) Post() {
 	// get the data from the request on json format
-	userData, err := decodeUserData(this.Ctx.Input.Request.Body)
+	userData, err := DecodeUserData(this.Ctx.Input.Request.Body)
 	if err != nil {
 		log.Println("LoginAuth: Error decode user data on login", err)
 		this.Data["json"] = &models.Token{}

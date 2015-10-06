@@ -3,33 +3,22 @@ package controllers
 import (
 	"encoding/json"
 	"log"
+
+	"github.com/jackgris/optima/models"
 )
 
 type PrivateController struct {
 	MiddlewareAuthController
 }
 
-type Advertiser struct {
-	Age       int      `json:"age"`
-	Id        string   `json:"id"`
-	Name      string   `json:"name"`
-	Sex       string   `json:"sex"`
-	Nse       string   `json:"nse"`
-	Coverage  string   `json:"coverage"`
-	Interets  []string `json:"interests"`
-	Category  string   `json:"category"`
-	Budget    int      `json:"budget"`
-	Objetives string   `json:"objetives"`
-}
-
 func (this *PrivateController) Get() {
 
 	a := []byte(advertisersData)
-	var advertisers []Advertiser
+	var advertisers []models.Advertiser
 	err := json.Unmarshal(a, &advertisers)
 	if err != nil {
 		log.Println("Private: Error to unmarshal json advertisers", err)
-		this.Data["json"] = &Advertiser{}
+		this.Data["json"] = &models.Advertiser{}
 	}
 	this.Data["json"] = &advertisers
 }

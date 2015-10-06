@@ -13,7 +13,7 @@ type RegisterAuth struct {
 
 func (this *RegisterAuth) Post() {
 
-	user, err := decodeUserData(this.Ctx.Input.Request.Body)
+	user, err := DecodeUserData(this.Ctx.Input.Request.Body)
 	if err != nil {
 		log.Println("RegisterAuth: Error decode user data on register", err)
 		this.Data["json"] = &models.Token{}
