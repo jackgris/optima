@@ -1,0 +1,73 @@
+<form ng-submit="addadvertiser()" ng-controller="AddAdvertiserController" method="post">      
+
+  <h2>Añadir publicista</h2>
+  
+  <fieldset>
+    <legend>Información básica</legend>
+    <label for="name">Name:</label>
+    <input type="text" ng-model="addadvertiser.nombre" name="advertiser_name">
+    
+    <label for="age">Edad:</label>
+    <input type="number" ng-model="addadvertiser.age" name="advertiser_age" min="1" max="100">
+
+ </fieldset>
+
+  <fieldset>
+    <label for="sex">Sexo:</label>
+    <input type="radio" ng-model="addadvertiser.sex" name="advertiser_sex" value="male" checked> Male
+    <input type="radio" ng-model="addadvertiser.sex" name="advertiser_sex" value="female"> Female
+  </fieldset> 
+
+  <fieldset>
+    <label for="selectnse"> Seleccionar NSE: </label>
+    <select name="selectnse" id="selectnse" ng-model="addadvertiser.nse.selectnse">
+      <option ng-repeat="option in addadvertiser.nse.availableOptions" value="{{option.id}}">{{option.name}}</option>
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <label for="coverage">Cobertura:</label>
+    <input type="text" ng-model="addadvertiser.coverage" name="advertiser_coverage">
+  </fieldset>
+
+  <fieldset>
+    <label for="category">Categoría:</label>
+    <input type="text" ng-model="addadvertiser.category" name="advertiser_category">
+  </fieldset>
+
+  <fieldset>
+    <label for="budget">Presupuesto:</label>
+    <input type="number" ng-model="addadvertiser.budget" name="advertiser_budget">
+  </fieldset>
+
+  <fieldset>
+    <label for="objetives">Objetivos:</label>
+    <input type="text" ng-model="addadvertiser.objetives" name="advertiser_objetives">
+  </fieldset>
+
+  <fieldset>
+    <label>Intereses:</label>
+    <br/>
+    <label>Value1:
+      <input type="checkbox" ng-model="addadvertiser.interest.value1">
+    </label>
+    <label>Value2:
+      <input type="checkbox" ng-model="addadvertiser.interest.value1">
+    </label>
+    <label>Value3:
+      <input type="checkbox" ng-model="addadvertiser.interest.value1">
+    </label>
+    <br/>
+    <label>Value4:
+      <input type="checkbox" ng-model="addadvertiser.interest.value4">
+    </label>
+    <label>Value5:
+      <input type="checkbox" ng-model="addadvertiser.interest.value5">
+    </label>
+    <label>Value6:
+      <input type="checkbox" ng-model="addadvertiser.interest.value6">
+    </label>
+  </fieldset>
+
+  <button type="submit">Agregar</button>
+</form>
