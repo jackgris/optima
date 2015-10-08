@@ -8,9 +8,6 @@ angular.module('optima')
 function AdvertiserService($resource, $auth){
     // this return the json data info of the advertisers
     return $resource('advertisers', {}, {
-        // 'static/js/json/:advertiserId.json', {}, {
-        // headers:{'Authorization': $auth.getToken()},
-        // params:{advertiserId:'advertisers'},
         query: {
             method:'GET',           
             isArray:true, 
@@ -19,14 +16,11 @@ function AdvertiserService($resource, $auth){
 }
 
 function AddAdvertiserService($resource, $auth){
-    // this return the json data info of the advertisers
-    return $resource('advertisers', {}, {
-        // 'static/js/json/:advertiserId.json', {}, {
-        // headers:{'Authorization': $auth.getToken()},
-        // params:{advertiserId:'advertisers'},
-        query: {
-            method:'GET',           
-            isArray:true, 
+    // this save the data of advertisers on the database
+    return $resource('addadvertisers', {}, {
+        put: {
+            method:'POST',           
+            params:{advertiserId:'advertisers'},
         }
     });
 }
