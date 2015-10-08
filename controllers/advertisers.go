@@ -6,11 +6,11 @@ import (
 	"github.com/jackgris/optima/models"
 )
 
-type PrivateController struct {
+type AdvertisersController struct {
 	MiddlewareAuthController
 }
 
-func (this *PrivateController) Get() {
+func (this *AdvertisersController) Get() {
 
 	var advertisers []models.Advertiser
 	advertisers, err := models.GetAdvertisers(this.AppEngineCtx)
@@ -20,7 +20,7 @@ func (this *PrivateController) Get() {
 	this.Data["json"] = &advertisers
 }
 
-func (this *PrivateController) Render() error {
+func (this *AdvertisersController) Render() error {
 	if _, ok := this.Data["json"].(error); ok {
 		this.AppEngineCtx.Errorf("login auth error: %v", this.Data["json"])
 	}

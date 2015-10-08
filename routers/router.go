@@ -9,7 +9,7 @@ import (
 func init() {
 	beegae.Router("/auth/login", &controllers.LoginAuth{})
 	beegae.Router("/auth/signup", &controllers.RegisterAuth{})
-	beegae.Router("/privatedata", &controllers.PrivateController{})
+	beegae.Router("/advertisers", &controllers.AdvertisersController{})
 	beegae.Router("/loadadvertiser", &controllers.LoadAdvertiserController{})
 	beegae.Router("/", &controllers.MainController{})
 
