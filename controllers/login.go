@@ -4,8 +4,11 @@ import (
 	"log"
 
 	"encoding/hex"
+
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/astaxie/beegae"
-	"github.com/golang/crypto/bcrypt"
+
 	"github.com/jackgris/optima/models"
 )
 
