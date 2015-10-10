@@ -17,10 +17,13 @@ function AdvertiserService($resource, $auth){
 
 function AddAdvertiserService($resource, $auth){
     // this save the data of advertisers on the database
-    return $resource('addadvertisers', {}, {
+    return $resource('addadvertisers/:name/:age/:sex/:nse/:coverage/:interets/:category/:budget/:objetives', {}, {
         put: {
             method:'POST',           
-            params:{advertiserId:'advertisers'},
+            params:{name:'name', age: 'age', sex:'sex', nse: 'nse', 
+                    coverage:'coverage', interets: 'interets',
+                    category: 'category', budget: 'budget', 
+                    objetives: 'objetives'},
         }
     });
 }
