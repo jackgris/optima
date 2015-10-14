@@ -17,15 +17,15 @@ function AddAdvertiserController($log, $scope, AddAdvertiser){
     $log.info('We will add an advertiser')
     $scope.addadvertiser = function(){
         AddAdvertiser.put({
-            name : $scope.addadvertiser.name
-            age : $scope.addadvertiser.age
-            sex : $scope.addadvertiser.sex
-            nse : $scope.addadvertiser.nse
-            coverage : $scope.addadvertiser.coverage
-            interets : ''
-            category = $scope.addadvertiser.category
-            budget : $scope.addadvertiser.budget
-            objetives : $scope.addadvertiser.objetives
+            name : $scope.addadvertiser.name,
+            age : $scope.addadvertiser.age,
+            sex : $scope.addadvertiser.sex,
+            nse : $scope.addadvertiser.nse,
+            coverage : $scope.addadvertiser.coverage,
+            interets : '',
+            category : $scope.addadvertiser.category,
+            budget : $scope.addadvertiser.budget,
+            objetives : $scope.addadvertiser.objetives,
         })
 
     }
