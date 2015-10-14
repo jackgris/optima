@@ -1,13 +1,11 @@
 package controllers
 
-import "github.com/astaxie/beegae"
-
 type NeedAuth interface {
 	AuthPrivatePlace()
 }
 
 type NeedAuthController struct {
-	beegae.Controller
+	RenderController
 }
 
 func (this *NeedAuthController) Prepare() {

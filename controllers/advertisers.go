@@ -19,11 +19,3 @@ func (this *AdvertisersController) Get() {
 	}
 	this.Data["json"] = &advertisers
 }
-
-func (this *AdvertisersController) Render() error {
-	if _, ok := this.Data["json"].(error); ok {
-		this.AppEngineCtx.Errorf("login auth error: %v", this.Data["json"])
-	}
-	this.ServeJson()
-	return nil
-}
