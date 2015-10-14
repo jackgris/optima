@@ -13,10 +13,21 @@ function HomeController($log, $auth) {
     $log.info($auth.getPayload())
 }
 
-function AddAdvertiserController($log, $scope){
+function AddAdvertiserController($log, $scope, AddAdvertiser){
     $log.info('We will add an advertiser')
     $scope.addadvertiser = function(){
-        $log.info('Button not implemented')
+        AddAdvertiser.put({
+            name : $scope.addadvertiser.name
+            age : $scope.addadvertiser.age
+            sex : $scope.addadvertiser.sex
+            nse : $scope.addadvertiser.nse
+            coverage : $scope.addadvertiser.coverage
+            interets : ''
+            category = $scope.addadvertiser.category
+            budget : $scope.addadvertiser.budget
+            objetives : $scope.addadvertiser.objetives
+        })
+
     }
     $scope.addadvertiser.nse = {
         selectnse: null,

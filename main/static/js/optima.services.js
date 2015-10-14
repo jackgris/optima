@@ -20,10 +20,10 @@ function AddAdvertiserService($resource, $auth){
     return $resource('addadvertisers/:name/:age/:sex/:nse/:coverage/:interets/:category/:budget/:objetives', {}, {
         put: {
             method:'POST',           
-            params:{name:'name', age: 'age', sex:'sex', nse: 'nse', 
-                    coverage:'coverage', interets: 'interets',
-                    category: 'category', budget: 'budget', 
-                    objetives: 'objetives'},
+            params:{name:'@name', age: '@age', sex:'@sex', nse: '@nse', 
+                    coverage:'@coverage', interets: '@interets',
+                    category: '@category', budget: '@budget', 
+                    objetives: '@objetives'},
         }
     });
 }

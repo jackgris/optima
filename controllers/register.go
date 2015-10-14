@@ -4,10 +4,11 @@ import (
 	"log"
 
 	"encoding/hex"
-	"github.com/astaxie/beegae"
-	"github.com/golang/crypto/bcrypt"
-	"github.com/jackgris/optima/models"
 	"math/rand"
+
+	"github.com/astaxie/beegae"
+	"github.com/jackgris/optima/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type RegisterAuth struct {
