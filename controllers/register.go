@@ -3,11 +3,10 @@ package controllers
 import (
 	"log"
 
-	"encoding/hex"
+	//"encoding/hex"
 	"github.com/astaxie/beegae"
-	"github.com/golang/crypto/bcrypt"
 	"github.com/jackgris/optima/models"
-	"math/rand"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type RegisterAuth struct {
@@ -36,16 +35,16 @@ func (this *RegisterAuth) Post() {
 		this.Data["json"] = &models.Token{}
 		return
 	} else {
-		cost := rand.Intn(27) + 4 //cost min 4 and max 31
-		hashHex, err := bcrypt.GenerateFromPassword([]byte(user.Pass), cost)
-		hashString := hex.EncodeToString(hashHex)
-		user.Pass = hashString
+		hashHex, err := bcrypt.GenerateFromPassword([]byte(user.Pass), bcrypt.DefaultCost)
+		user.Pass = hashHex
 		if err != nil {
 			log.Println("bcrypt broke")
 			return
 		}
 		models.AddUser(user, this.AppEngineCtx)
 	}
+	//
+	user.Salt = GenerateRandomSalt()
 	// It's all ok, return the user data on json format
 	this.Data["json"] = &user.Token
 }

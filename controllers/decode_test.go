@@ -33,6 +33,20 @@ var _ = ginkgo.Describe("Decode", func() {
 	})
 })
 
+var _ = ginkgo.Describe("checking password user", func() {
+	Expect := gomega.Expect
+	Describe := ginkgo.Describe
+	It := ginkgo.It
+
+	Describe("Comparing the password input", func() {
+		It("Should get the same input password with database hash password ", func() {
+
+		})
+
+	})
+
+})
+
 type myCloser struct {
 	io.Reader
 }

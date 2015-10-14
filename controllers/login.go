@@ -3,9 +3,7 @@ package controllers
 import (
 	"log"
 
-	"encoding/hex"
 	"github.com/astaxie/beegae"
-	"github.com/golang/crypto/bcrypt"
 	"github.com/jackgris/optima/models"
 )
 
@@ -30,22 +28,19 @@ func (this *LoginAuth) Post() {
 		return
 	}
 	// check if the password is the same
-	pass, err := hex.DecodeString(user.Pass)
+	validPass, err := CheckPassword(user.Pass, user.Salt, userData.Pass)
 	if err != nil {
-		wrong := "Error decodeString"
-		log.Println("LoginAuth: ", wrong)
+		errorM := "Error checking password"
+		log.Println("LoginAuth: ", errorM)
 		this.Data["json"] = &models.Token{}
 		return
 	}
-	log.Println("comparando")
-	err = bcrypt.CompareHashAndPassword(pass, []byte(userData.Pass))
-	if err != nil {
+	if !validPass {
 		wrong := "Wrong password"
 		log.Println("LoginAuth: ", wrong)
 		this.Data["json"] = &models.Token{}
 		return
 	}
-	log.Println("termino")
 
 	this.Data["json"] = &user.Token
 }
