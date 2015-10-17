@@ -13,3 +13,10 @@ func DecodeUserData(r io.ReadCloser) (*models.User, error) {
 	err := json.NewDecoder(r).Decode(&u)
 	return &u, err
 }
+
+func DecodeAdvertiserData(r io.ReadCloser) (*models.Advertiser, error) {
+	defer r.Close()
+	var u models.Advertiser
+	err := json.NewDecoder(r).Decode(&u)
+	return &u, err
+}

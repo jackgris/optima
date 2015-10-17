@@ -18,7 +18,7 @@ var _ = ginkgo.Describe("Decode", func() {
 	It := ginkgo.It
 
 	Describe("Decode input from request", func() {
-		It("Should get the same info from the json on a request", func() {
+		It("Should get the same user info from the json on a request", func() {
 			u := models.User{}
 			u.Name = "fake"
 			u.Email = "fake@gmail.com"
@@ -29,6 +29,19 @@ var _ = ginkgo.Describe("Decode", func() {
 			Expect(err).To(gomega.BeNil())
 			Expect(u.Name).To(gomega.Equal(u2.Name))
 			Expect(u.Email).To(gomega.Equal(u2.Email))
+		})
+
+		It("Should get advertiser data from a json request", func() {
+			a := models.Advertiser{}
+			a.Name = "fake"
+			a.Sex = "s"
+			data := `{"name":"fake", "sex":"m"}`
+			r := http.Request{}
+			r.Body = myCloser{bytes.NewBufferString(data)}
+			a2, err := controllers.DecodeAdvertiserData(r.Body)
+			Expect(err).To(gomega.BeNil())
+			Expect(a.Name).To(gomega.Equal(a2.Name))
+			Expect(a.Sex).To(gomega.Equal(a2.Sex)) // Need finish write test
 		})
 	})
 })
