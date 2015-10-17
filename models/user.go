@@ -13,8 +13,9 @@ import (
 type User struct {
 	Id      int64
 	Name    string `json:"name"`
-	Pass    string `json:"password"`
+	Pass    []byte `json:"password"`
 	Email   string `json:"email"`
+	Salt    []byte `json: salt`
 	Token   Token  `json:"token"`
 	Created time.Time
 }
