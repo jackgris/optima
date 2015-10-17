@@ -41,7 +41,6 @@ func (this *LoginAuth) Post() {
 		this.Data["json"] = &models.Token{}
 		return
 	}
-
 	this.Data["json"] = &user.Token
 }
 

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/jackgris/optima/models"
 
-	"github.com/golang/crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt"
 	"io"
 	"log"
 	"math/rand"
